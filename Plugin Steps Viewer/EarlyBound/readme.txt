@@ -1,0 +1,1 @@
+﻿Note: Early-Bound classes are not permitted in XrmToolBox. I'm still using them, but have removed the serialization attributes. Therefore 
