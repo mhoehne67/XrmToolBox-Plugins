@@ -8,7 +8,7 @@ using XrmToolBox.Extensibility.Args;
 
 namespace mho.PluginStepsViewer
 {
-	public partial class PluginStepsViewerControl : PluginControlBase, IStatusBarMessenger, IGitHubPlugin
+	public partial class PluginStepsViewerControl : PluginControlBase, IStatusBarMessenger, IGitHubPlugin, IHelpPlugin
 	{
 
 		/// <summary>
@@ -39,6 +39,7 @@ namespace mho.PluginStepsViewer
 
 		string IGitHubPlugin.RepositoryName => "XrmToolBox-Plugins";
 		string IGitHubPlugin.UserName => "mhoehne67";
+		string IHelpPlugin.HelpUrl => "https://html-preview.github.io/?url=https://github.com/mhoehne67/XrmToolBox-Plugins/blob/main/Plugin%20Steps%20Viewer/Help/index.html";
 
 
 		/// <summary>
@@ -61,6 +62,8 @@ namespace mho.PluginStepsViewer
 				comboFilterPrimaryEntityOperator,
 				comboFilterSecondaryEntityOperator
 			};
+
+			dataGridViewPluginStepsDisplay.ScrollBars = ScrollBars.Both;			
 		}
 
 		/// <summary>
@@ -193,9 +196,25 @@ namespace mho.PluginStepsViewer
 					dataGridViewPluginStepsDisplay.DataSource = loader.SortableBindingList;
 
 					foreach (DataGridViewColumn column in dataGridViewPluginStepsDisplay.Columns)
-						column.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+						column.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;						
 
 					dataGridViewPluginStepsDisplay.AutoResizeColumns();
+
+					foreach (DataGridViewColumn column in dataGridViewPluginStepsDisplay.Columns)
+						column.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+
+					dataGridViewPluginStepsDisplay.AllowUserToResizeColumns = true;
+					var widths = new Dictionary<DataGridViewColumn, int>();
+
+					foreach (DataGridViewColumn column in dataGridViewPluginStepsDisplay.Columns)
+						widths[column] = column.Width;
+
+					foreach (DataGridViewColumn column in dataGridViewPluginStepsDisplay.Columns)
+						column.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+
+					foreach (DataGridViewColumn column in dataGridViewPluginStepsDisplay.Columns)
+						column.Width = widths[column];
+
 					propertyGridPluginStep.SelectedObject = null;
 
 					FilterSteps();

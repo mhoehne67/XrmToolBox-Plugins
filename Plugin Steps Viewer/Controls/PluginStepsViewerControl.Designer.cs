@@ -40,7 +40,6 @@
 			this.statusLabelNumTypes = new System.Windows.Forms.ToolStripStatusLabel();
 			this.statusLabelNumSteps = new System.Windows.Forms.ToolStripStatusLabel();
 			this.statusLabelNumDisplayedSteps = new System.Windows.Forms.ToolStripStatusLabel();
-			this.dataGridViewPluginStepsDisplay = new System.Windows.Forms.DataGridView();
 			this.splitContainerFilterAndProperties = new System.Windows.Forms.SplitContainer();
 			this.tabs = new System.Windows.Forms.TabControl();
 			this.tabPageFilter = new System.Windows.Forms.TabPage();
@@ -70,6 +69,7 @@
 			this.textBoxExcludedAssemblies = new System.Windows.Forms.TextBox();
 			this.propertyGridPluginStep = new System.Windows.Forms.PropertyGrid();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+			this.dataGridViewPluginStepsDisplay = new System.Windows.Forms.DataGridView();
 			this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.typeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.assemblyDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -93,7 +93,6 @@
 			this.splitContainerMain.Panel2.SuspendLayout();
 			this.splitContainerMain.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridViewPluginStepsDisplay)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainerFilterAndProperties)).BeginInit();
 			this.splitContainerFilterAndProperties.Panel1.SuspendLayout();
 			this.splitContainerFilterAndProperties.Panel2.SuspendLayout();
@@ -102,6 +101,7 @@
 			this.tabPageFilter.SuspendLayout();
 			this.tabPageSettings.SuspendLayout();
 			this.toolStripSettings.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridViewPluginStepsDisplay)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pluginStepDisplayBindingSource)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -115,8 +115,8 @@
 			// 
 			// splitContainerMain.Panel1
 			// 
-			this.splitContainerMain.Panel1.Controls.Add(this.statusStrip1);
 			this.splitContainerMain.Panel1.Controls.Add(this.dataGridViewPluginStepsDisplay);
+			this.splitContainerMain.Panel1.Controls.Add(this.statusStrip1);
 			this.splitContainerMain.Panel1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			// 
 			// splitContainerMain.Panel2
@@ -163,58 +163,6 @@
 			this.statusLabelNumDisplayedSteps.Name = "statusLabelNumDisplayedSteps";
 			this.statusLabelNumDisplayedSteps.Size = new System.Drawing.Size(101, 17);
 			this.statusLabelNumDisplayedSteps.Text = "Displayed Steps: 0";
-			// 
-			// dataGridViewPluginStepsDisplay
-			// 
-			this.dataGridViewPluginStepsDisplay.AllowUserToAddRows = false;
-			this.dataGridViewPluginStepsDisplay.AllowUserToDeleteRows = false;
-			this.dataGridViewPluginStepsDisplay.AutoGenerateColumns = false;
-			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.dataGridViewPluginStepsDisplay.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-			this.dataGridViewPluginStepsDisplay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridViewPluginStepsDisplay.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.nameDataGridViewTextBoxColumn,
-            this.typeDataGridViewTextBoxColumn,
-            this.assemblyDataGridViewTextBoxColumn,
-            this.modeDataGridViewTextBoxColumn,
-            this.stageDataGridViewTextBoxColumn,
-            this.messageDataGridViewTextBoxColumn,
-            this.rankDataGridViewTextBoxColumn,
-            this.primaryEntityDataGridViewTextBoxColumn,
-            this.secondaryEntityDataGridViewTextBoxColumn});
-			this.dataGridViewPluginStepsDisplay.DataSource = this.pluginStepDisplayBindingSource;
-			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-			dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.dataGridViewPluginStepsDisplay.DefaultCellStyle = dataGridViewCellStyle3;
-			this.dataGridViewPluginStepsDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.dataGridViewPluginStepsDisplay.Location = new System.Drawing.Point(0, 0);
-			this.dataGridViewPluginStepsDisplay.Margin = new System.Windows.Forms.Padding(4);
-			this.dataGridViewPluginStepsDisplay.MultiSelect = false;
-			this.dataGridViewPluginStepsDisplay.Name = "dataGridViewPluginStepsDisplay";
-			this.dataGridViewPluginStepsDisplay.ReadOnly = true;
-			dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-			dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-			dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-			dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-			dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.dataGridViewPluginStepsDisplay.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
-			this.dataGridViewPluginStepsDisplay.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-			this.dataGridViewPluginStepsDisplay.Size = new System.Drawing.Size(1253, 1063);
-			this.dataGridViewPluginStepsDisplay.TabIndex = 1;
-			this.dataGridViewPluginStepsDisplay.SelectionChanged += new System.EventHandler(this.dataGridViewPluginStepsDisplay_SelectionChanged);
 			// 
 			// splitContainerFilterAndProperties
 			// 
@@ -530,7 +478,7 @@
 			this.textBoxExcludedAssemblies.Location = new System.Drawing.Point(9, 24);
 			this.textBoxExcludedAssemblies.Multiline = true;
 			this.textBoxExcludedAssemblies.Name = "textBoxExcludedAssemblies";
-			this.textBoxExcludedAssemblies.Size = new System.Drawing.Size(512, 260);
+			this.textBoxExcludedAssemblies.Size = new System.Drawing.Size(512, 262);
 			this.textBoxExcludedAssemblies.TabIndex = 9;
 			// 
 			// propertyGridPluginStep
@@ -541,6 +489,60 @@
 			this.propertyGridPluginStep.Name = "propertyGridPluginStep";
 			this.propertyGridPluginStep.Size = new System.Drawing.Size(535, 784);
 			this.propertyGridPluginStep.TabIndex = 100;
+			// 
+			// dataGridViewPluginStepsDisplay
+			// 
+			this.dataGridViewPluginStepsDisplay.AllowUserToAddRows = false;
+			this.dataGridViewPluginStepsDisplay.AllowUserToDeleteRows = false;
+			this.dataGridViewPluginStepsDisplay.AllowUserToOrderColumns = true;
+			this.dataGridViewPluginStepsDisplay.AllowUserToResizeRows = false;
+			this.dataGridViewPluginStepsDisplay.AutoGenerateColumns = false;
+			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.dataGridViewPluginStepsDisplay.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+			this.dataGridViewPluginStepsDisplay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dataGridViewPluginStepsDisplay.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.nameDataGridViewTextBoxColumn,
+            this.typeDataGridViewTextBoxColumn,
+            this.assemblyDataGridViewTextBoxColumn,
+            this.modeDataGridViewTextBoxColumn,
+            this.stageDataGridViewTextBoxColumn,
+            this.messageDataGridViewTextBoxColumn,
+            this.rankDataGridViewTextBoxColumn,
+            this.primaryEntityDataGridViewTextBoxColumn,
+            this.secondaryEntityDataGridViewTextBoxColumn});
+			this.dataGridViewPluginStepsDisplay.DataSource = this.pluginStepDisplayBindingSource;
+			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+			dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.dataGridViewPluginStepsDisplay.DefaultCellStyle = dataGridViewCellStyle3;
+			this.dataGridViewPluginStepsDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.dataGridViewPluginStepsDisplay.Location = new System.Drawing.Point(0, 0);
+			this.dataGridViewPluginStepsDisplay.Margin = new System.Windows.Forms.Padding(4);
+			this.dataGridViewPluginStepsDisplay.MultiSelect = false;
+			this.dataGridViewPluginStepsDisplay.Name = "dataGridViewPluginStepsDisplay";
+			this.dataGridViewPluginStepsDisplay.ReadOnly = true;
+			dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+			dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+			dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+			dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+			dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.dataGridViewPluginStepsDisplay.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+			this.dataGridViewPluginStepsDisplay.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+			this.dataGridViewPluginStepsDisplay.Size = new System.Drawing.Size(1253, 1041);
+			this.dataGridViewPluginStepsDisplay.TabIndex = 3;
+			this.dataGridViewPluginStepsDisplay.SelectionChanged += new System.EventHandler(this.dataGridViewPluginStepsDisplay_SelectionChanged);
 			// 
 			// nameDataGridViewTextBoxColumn
 			// 
@@ -771,7 +773,6 @@
 			this.splitContainerMain.ResumeLayout(false);
 			this.statusStrip1.ResumeLayout(false);
 			this.statusStrip1.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridViewPluginStepsDisplay)).EndInit();
 			this.splitContainerFilterAndProperties.Panel1.ResumeLayout(false);
 			this.splitContainerFilterAndProperties.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.splitContainerFilterAndProperties)).EndInit();
@@ -783,6 +784,7 @@
 			this.tabPageSettings.PerformLayout();
 			this.toolStripSettings.ResumeLayout(false);
 			this.toolStripSettings.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridViewPluginStepsDisplay)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.pluginStepDisplayBindingSource)).EndInit();
 			this.ResumeLayout(false);
 
@@ -791,7 +793,6 @@
 		#endregion
 
 		private System.Windows.Forms.SplitContainer splitContainerMain;
-		private System.Windows.Forms.DataGridView dataGridViewPluginStepsDisplay;
 		private System.Windows.Forms.SplitContainer splitContainerFilterAndProperties;
 		private System.Windows.Forms.ComboBox comboFilterStage;
 		private System.Windows.Forms.ComboBox comboFilterAssembly;
@@ -835,6 +836,7 @@
 		private System.Windows.Forms.Label labelFilterPrimaryEntity;
 		private System.Windows.Forms.ToolTip toolTip1;
 		private System.Windows.Forms.ToolStripButton toolStripButtonDiscardSettings;
+		private System.Windows.Forms.DataGridView dataGridViewPluginStepsDisplay;
 		private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
 		private System.Windows.Forms.DataGridViewTextBoxColumn typeDataGridViewTextBoxColumn;
 		private System.Windows.Forms.DataGridViewTextBoxColumn assemblyDataGridViewTextBoxColumn;

@@ -260,6 +260,7 @@
   <ItemGroup>
     <None Include="Plugin Steps Viewer 32x32.png" />
     <None Include="Plugin Steps Viewer 80x80.png" />
+    <Content Include="Help\index.html" />
     <Content Include="Plugin Steps Viewer.ico" />
     <Content Include="Resources\Icons\Settings.ico" />
     <None Include="Resources\Images16x16\Save.png" />
