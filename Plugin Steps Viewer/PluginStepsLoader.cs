@@ -217,31 +217,5 @@ namespace mho.PluginStepsViewer
 			TypeNames = Types.Select(a => a.Name ?? "").ToList();
 			TypeNames.Sort();
 		}
-
-		/// <summary>
-		/// Performs a bulk load of associated SdkMessageFilters to obtain the 
-		/// primary and secondary entity names of the retrieved steps.
-		/// </summary>
-		/// <param name="idsToRetrieve"></param>
-		/// <param name="filters"></param>
-		private void AddFilters(List<object> idsToRetrieve, Dictionary<Guid, SdkMessageFilter> filters)
-		{
-			var query = new QueryExpression(SdkMessageFilter.EntityLogicalName);
-
-			query.Criteria.AddCondition(
-				SdkMessageFilter.Fields.SdkMessageFilterId,
-				ConditionOperator.In,
-				idsToRetrieve.ToArray());
-
-			query.ColumnSet.AddColumns(
-				SdkMessageFilter.Fields.PrimaryObjectTypeCode,
-				SdkMessageFilter.Fields.SecondaryObjectTypeCode);
-
-			foreach (var entity in Service.RetrieveMultiple(query).Entities)
-			{
-				if (!filters.ContainsKey(entity.Id))
-					filters.Add(entity.Id, new SdkMessageFilter(entity));
-			}
-		}
 	}
 }
