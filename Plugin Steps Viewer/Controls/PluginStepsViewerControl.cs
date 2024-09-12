@@ -39,7 +39,7 @@ namespace mho.PluginStepsViewer
 
 		string IGitHubPlugin.RepositoryName => "XrmToolBox-Plugins";
 		string IGitHubPlugin.UserName => "mhoehne67";
-		string IHelpPlugin.HelpUrl => "https://html-preview.github.io/?url=https://github.com/mhoehne67/XrmToolBox-Plugins/blob/main/Plugin%20Steps%20Viewer/Help/index.html";
+		string IHelpPlugin.HelpUrl => "https://github.com/mhoehne67/XrmToolBox-Plugins/blob/main/Plugin%20Steps%20Viewer/Help/PluginStepsViewer.pdf";
 
 
 		/// <summary>
