@@ -1,4 +1,5 @@
 ﻿using mho.PluginStepsViewer.EarlyBoundTypes;
+using Microsoft.Xrm.Sdk;
 
 namespace mho.PluginStepsViewer.Display
 {
@@ -257,6 +258,16 @@ namespace mho.PluginStepsViewer.Display
 		/// N:1 plugintypeid_sdkmessageprocessingstep
 		/// </summary>
 		internal mho.PluginStepsViewer.EarlyBoundTypes.PluginType plugintypeid_sdkmessageprocessingstep => step.plugintypeid_sdkmessageprocessingstep;
+
+		/// <summary>
+		/// Type of entity with which the SDK message filter is primarily associated.
+		/// </summary>
+		public string PrimaryObjectTypeCode => step.PrimaryObjectTypeCode;
+
+		/// <summary>
+		/// Type of entity with which the SDK message filter is secondarily associated.
+		/// </summary>
+		public string SecondaryObjectTypeCode => step.SecondaryObjectTypeCode;
 	}
 }
 

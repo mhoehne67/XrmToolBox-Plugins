@@ -52,6 +52,12 @@ namespace mho.PluginStepsViewer
 
 		private FilterSettings _filterSettings;
 
+		/// <summary>
+		/// Assigns a <see cref="FilterSettings"/> to this Combox Box. Settings will be
+		/// loaded from the passed <paramref name="filter"/> and a subsequent call to
+		/// <see cref="SaveSettings"/> will update the values in <paramref name="filter"/>.
+		/// </summary>
+		/// <param name="filter"></param>
 		public void SetFilterSettings(FilterSettings filter)
 		{
 			_filterSettings = filter;
@@ -64,7 +70,10 @@ namespace mho.PluginStepsViewer
 				FilteringTextBox.Text = filter.Value;
 		}
 
-
+		/// <summary>
+		/// Saves the current filter settings to the <see cref="FilterSettings"/> passed
+		/// in the ast call to <see cref="SetFilterSettings(FilterSettings)"/>.
+		/// </summary>
 		public void SaveSettings()
 		{
 			if (_filterSettings != null)
@@ -77,10 +86,14 @@ namespace mho.PluginStepsViewer
 
 		private ComboBox _filteringComboBox;
 
+		/// <summary>
+		/// Attaches a ComboBox that serves as the comparison value when the 
+		/// <see cref="Filter{T}(List{T})"/> method is called.
+		/// </summary>
 		[EditorBrowsable(EditorBrowsableState.Always)]
 		[Browsable(true)]
 		[DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-		[Bindable(true)]
+		[Bindable(true)]		
 		public ComboBox FilteringComboBox
 		{
 			get => _filteringComboBox;
@@ -107,6 +120,10 @@ namespace mho.PluginStepsViewer
 
 		private TextBox _filteringTextBox;
 
+		/// <summary>
+		/// Attaches a TextBox that serves as the comparison value when the 
+		/// <see cref="Filter{T}(List{T})"/> method is called.
+		/// </summary>
 		[EditorBrowsable(EditorBrowsableState.Always)]
 		[Browsable(true)]
 		[DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -129,6 +146,11 @@ namespace mho.PluginStepsViewer
 			}
 		}
 
+		/// <summary>
+		/// Specifies the property name of the type that is used to filter the list
+		/// of values in a call to <see cref="Filter{T}(List{T})"/>. Must be a public
+		/// instance property of thy Type used in <see cref="Filter{T}(List{T})"/>.
+		/// </summary>
 		[EditorBrowsable(EditorBrowsableState.Always)]
 		[Browsable(true)]
 		[DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -146,6 +168,10 @@ namespace mho.PluginStepsViewer
 			return "";
 		}
 
+		/// <summary>
+		/// Sets a list of items a user can select from in the bound combobox.
+		/// </summary>
+		/// <param name="items"></param>
 		public void SetPredefinedFilters(List<string> items)
 		{
 			if (FilteringComboBox != null)

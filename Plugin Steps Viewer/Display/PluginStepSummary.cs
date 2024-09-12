@@ -20,9 +20,9 @@ namespace mho.PluginStepsViewer.Display
 		public string Mode => $"{step.Mode}";
 		public string Stage => $"{step.Stage}";
 		public string Message => $"{step.SdkMessageId?.Name}";
-		public int Rank => step.Rank ?? 0;		
-		public string PrimaryEntity { get; set; }
-		public string SecondaryEntity { get; set; }
+		public int Rank => step.Rank ?? 0;
+		public string PrimaryEntity => $"{step.PrimaryObjectTypeCode}";
+		public string SecondaryEntity => $"{step.SecondaryObjectTypeCode}";
 
 		internal PluginStepSummary(PluginAssembly assembly, PluginType type, SdkMessageProcessingStep step)
 		{
@@ -44,10 +44,12 @@ namespace mho.PluginStepsViewer.Display
 			{
 				isFullyLoaded = true;
 
-				step = new SdkMessageProcessingStep(service.Retrieve(
+				var fullStep = new SdkMessageProcessingStep(service.Retrieve(
 					SdkMessageProcessingStep.EntityLogicalName,
 					step.SdkMessageProcessingStepId.Value,
 					new Microsoft.Xrm.Sdk.Query.ColumnSet(true)));
+
+				step.UpdateAttributes(fullStep.Attributes);
 			}
 
 			propertyGrid.SelectedObject = new SdkMessageProcessingStepDisplay(step);

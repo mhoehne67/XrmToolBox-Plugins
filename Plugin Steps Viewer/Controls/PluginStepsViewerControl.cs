@@ -228,6 +228,9 @@ namespace mho.PluginStepsViewer
 		}
 
 
+		/// <summary>
+		/// Filters the list of previously retrieved plugin steps.
+		/// </summary>
 		void FilterSteps()
 		{
 			if (_isFilteringSuppressed)
@@ -244,22 +247,42 @@ namespace mho.PluginStepsViewer
 			SaveFilters();
 		}
 
+		/// <summary>
+		/// Display the selected plugin step in the property grid.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void dataGridViewPluginStepsDisplay_SelectionChanged(object sender, EventArgs e)
 		{
 			if (dataGridViewPluginStepsDisplay.CurrentRow.DataBoundItem is PluginStepSummary step)
 				step.DisplayInPropertyGrid(propertyGridPluginStep, Service);
 		}
 
+		/// <summary>
+		/// Called from all filter controls when a change occurred.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void FilterChanged(object sender, EventArgs e)
 		{
 			FilterSteps();
 		}
 
+		/// <summary>
+		/// Reload the steps (click on reload in the settings tab)
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void toolStripButtonExecute_Click(object sender, EventArgs e)
 		{
 			ReloadSteps();
 		}
 
+		/// <summary>
+		/// Converts the entries in the assembly exclusion list (multi-line textbox)
+		/// into a string list.
+		/// </summary>
+		/// <returns></returns>
 		private List<string> GetExcludedAssemblies()
 		{
 			string[] excludedAssemblies = textBoxExcludedAssemblies.Text.Replace("\r", "").Split('\n');
@@ -280,6 +303,11 @@ namespace mho.PluginStepsViewer
 			return excludedAssembliesList;
 		}
 
+		/// <summary>
+		/// Saves the global settings.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void toolStripButtonSaveSettings_Click(object sender, EventArgs e)
 		{
 			var excludedAssembliesList = GetExcludedAssemblies();
@@ -290,11 +318,22 @@ namespace mho.PluginStepsViewer
 			GlobalSettings.Save(settings);
 		}
 
+		/// <summary>
+		/// Resets the assembly exclusion list to the last saved state.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void toolStripButtonResetToLastSavedState_Click(object sender, EventArgs e)
 		{
 			ResetExcludedAssembliesToLastSavedState();
 		}
 
+
+		/// <summary>
+		/// Restores the default assembly exclusion list.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void toolStripButtonDiscardSettings_Click(object sender, EventArgs e)
 		{
 			SetExcludedAssemblies(GlobalSettings.DefaultExcludedAssemblies);

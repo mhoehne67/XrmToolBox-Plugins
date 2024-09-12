@@ -10,6 +10,9 @@ using System;
 
 namespace mho.PluginStepsViewer
 {
+	/// <summary>
+	/// Loads requested assemblies, types and steps.
+	/// </summary>
 	internal class PluginStepsLoader
 	{
 		public List<PluginAssembly> Assemblies { get; private set; }
@@ -29,12 +32,22 @@ namespace mho.PluginStepsViewer
 		readonly IOrganizationService Service;
 		readonly BackgroundWorker BackgroundWorker;
 
+		/// <summary>
+		/// Constructor.
+		/// </summary>
+		/// <param name="service">The organization service passed from the XrmToolBox.</param>
+		/// <param name="backgroundWorker">The background worker instance launched from the plugin control.</param>
 		public PluginStepsLoader(IOrganizationService service, BackgroundWorker backgroundWorker)
 		{
 			Service = service;
 			BackgroundWorker = backgroundWorker;
 		}
 
+		/// <summary>
+		/// Loads the entire information to be displayed in the data grid view of
+		/// the plugin steps viewer control.
+		/// </summary>
+		/// <param name="excludedAssemblyNamePrefixes"></param>
 		public void LoadAsync(List<string> excludedAssemblyNamePrefixes)
 		{
 			BackgroundWorker.ReportProgress(0, "Loading assemblies...");
@@ -52,7 +65,6 @@ namespace mho.PluginStepsViewer
 			BackgroundWorker.ReportProgress(90, "Sending data to UI...");
 			SortableBindingList = new SortableBindingList<PluginStepSummary>(StepSummaries);
 		}
-
 
 
 		/// <summary>
@@ -130,7 +142,17 @@ namespace mho.PluginStepsViewer
 			query.Criteria.AddCondition(SdkMessageProcessingStep.Fields.PluginTypeId, ConditionOperator.In, ids);
 			query.AddOrder(SdkMessageProcessingStep.Fields.Name, OrderType.Ascending);
 
-			// query.SubQueryExpression 						
+			var filter = query.AddLink(
+				SdkMessageFilter.EntityLogicalName, 
+				SdkMessageProcessingStep.Fields.SdkMessageFilterId, 
+				SdkMessageFilter.Fields.SdkMessageFilterId);
+
+			filter.EntityAlias = SdkMessageProcessingStep.SdkMessageFilterAlias;
+			
+			filter.Columns.AddColumns(
+				SdkMessageFilter.Fields.PrimaryObjectTypeCode, 
+				SdkMessageFilter.Fields.SecondaryObjectTypeCode);
+
 			int numRecordsRetrieved = 0;
 
 			query.PageInfo.Count = 5000;
@@ -174,8 +196,6 @@ namespace mho.PluginStepsViewer
 				StepSummaries.Add(stepSummary);
 			}
 
-			LoadStepsPrimaryAndSecondaryEntityName();
-
 			Modes = StepSummaries.Select(a => a.Mode ?? "").Distinct().ToList();
 			Modes.Sort();
 
@@ -196,45 +216,6 @@ namespace mho.PluginStepsViewer
 						
 			TypeNames = Types.Select(a => a.Name ?? "").ToList();
 			TypeNames.Sort();
-		}
-
-		private void LoadStepsPrimaryAndSecondaryEntityName()
-		{
-			var sdkMessageFilterIds = new List<Guid>();
-			var idsToRetrieve = new List<object>();
-			var filters = new Dictionary<Guid, SdkMessageFilter>();
-
-			foreach (var summary in StepSummaries)
-			{
-				Guid? filterId = summary.GetSdkMessageFilterId();
-
-				if (filterId.HasValue && !sdkMessageFilterIds.Contains(filterId.Value))
-				{
-					sdkMessageFilterIds.Add(filterId.Value);
-					idsToRetrieve.Add(filterId.Value);
-				}
-
-				if (idsToRetrieve.Count == 1000)
-				{
-					AddFilters(idsToRetrieve, filters);
-					idsToRetrieve.Clear();
-				}
-			}
-
-			if (idsToRetrieve.Count > 0)			
-				AddFilters(idsToRetrieve, filters);			
-
-			foreach (var summary in StepSummaries)
-			{
-				Guid? filterId = summary.GetSdkMessageFilterId();
-
-				if (filterId.HasValue && filters.ContainsKey(filterId.Value))
-				{
-					var filter = filters[filterId.Value];
-					summary.PrimaryEntity = filter.PrimaryObjectTypeCode;
-					summary.SecondaryEntity = filter.SecondaryObjectTypeCode;
-				}
-			}			
 		}
 
 		/// <summary>

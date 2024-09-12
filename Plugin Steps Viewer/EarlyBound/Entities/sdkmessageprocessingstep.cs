@@ -12,80 +12,82 @@
 using Microsoft.Xrm.Sdk;
 
 namespace mho.PluginStepsViewer.EarlyBoundTypes
-{	
+{
 	/// <summary>
 	/// Identifies if a plug-in should be executed from a parent pipeline, a child pipeline, or both.
 	/// </summary>	
 	public enum sdkmessageprocessingstep_invocationsource
-	{		
-		Internal = -1,		
-		Parent = 0,		
+	{
+		Internal = -1,
+		Parent = 0,
 		Child = 1,
 	}
-	
+
 	/// <summary>
 	/// Run-time mode of execution, for example, synchronous or asynchronous.
 	/// </summary>	
 	public enum sdkmessageprocessingstep_mode
-	{		
-		Synchronous = 0,		
+	{
+		Synchronous = 0,
 		Asynchronous = 1,
 	}
-	
+
 	/// <summary>
 	/// Stage in the execution pipeline that the SDK message processing step is in.
 	/// </summary>	
 	public enum sdkmessageprocessingstep_stage
-	{		
-		InitialPreoperation_Forinternaluseonly = 5,		
-		Prevalidation = 10,		
-		InternalPreoperationBeforeExternalPlugins_Forinternaluseonly = 15,		
-		Preoperation = 20,		
-		InternalPreoperationAfterExternalPlugins_Forinternaluseonly = 25,		
-		MainOperation_Forinternaluseonly = 30,		
-		InternalPostoperationBeforeExternalPlugins_Forinternaluseonly = 35,		
-		Postoperation = 40,		
-		InternalPostoperationAfterExternalPlugins_Forinternaluseonly = 45,		
-		Postoperation_Deprecated = 50,		
-		FinalPostoperation_Forinternaluseonly = 55,		
-		PreCommitstagefiredbeforetransactioncommit_Forinternaluseonly = 80,		
+	{
+		InitialPreoperation_Forinternaluseonly = 5,
+		Prevalidation = 10,
+		InternalPreoperationBeforeExternalPlugins_Forinternaluseonly = 15,
+		Preoperation = 20,
+		InternalPreoperationAfterExternalPlugins_Forinternaluseonly = 25,
+		MainOperation_Forinternaluseonly = 30,
+		InternalPostoperationBeforeExternalPlugins_Forinternaluseonly = 35,
+		Postoperation = 40,
+		InternalPostoperationAfterExternalPlugins_Forinternaluseonly = 45,
+		Postoperation_Deprecated = 50,
+		FinalPostoperation_Forinternaluseonly = 55,
+		PreCommitstagefiredbeforetransactioncommit_Forinternaluseonly = 80,
 		PostCommitstagefiredaftertransactioncommit_Forinternaluseonly = 90,
 	}
-	
+
 	/// <summary>
 	/// Status of the SDK message processing step.
 	/// </summary>	
 	public enum sdkmessageprocessingstep_statecode
-	{		
-		Enabled = 0,		
+	{
+		Enabled = 0,
 		Disabled = 1,
 	}
-	
+
 	/// <summary>
 	/// Reason for the status of the SDK message processing step.
 	/// </summary>	
 	public enum sdkmessageprocessingstep_statuscode
-	{		
-		Enabled = 1,		
+	{
+		Enabled = 1,
 		Disabled = 2,
 	}
-	
+
 	/// <summary>
 	/// Deployment that the SDK message processing step should be executed on; server, client, or both.
 	/// </summary>	
 	public enum sdkmessageprocessingstep_supporteddeployment
-	{		
-		ServerOnly = 0,		
-		MicrosoftDynamics365ClientforOutlookOnly = 1,		
+	{
+		ServerOnly = 0,
+		MicrosoftDynamics365ClientforOutlookOnly = 1,
 		Both = 2,
 	}
-	
+
 	/// <summary>
 	/// Stage in the execution pipeline that a plug-in is to execute.
 	/// </summary>	
 	[Microsoft.Xrm.Sdk.Client.EntityLogicalNameAttribute("sdkmessageprocessingstep")]
 	public partial class SdkMessageProcessingStep : Microsoft.Xrm.Sdk.Entity
-	{		
+	{
+		public const string SdkMessageFilterAlias = "filter";
+
 		/// <summary>
 		/// Available fields, a the time of codegen, for the sdkmessageprocessingstep entity
 		/// </summary>
@@ -138,23 +140,33 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 			public const string VersionNumber = "versionnumber";
 			public const string plugintype_sdkmessageprocessingstep = "plugintype_sdkmessageprocessingstep";
 			public const string plugintypeid_sdkmessageprocessingstep = "plugintypeid_sdkmessageprocessingstep";
+
+			// Extensions for linked SdkMessageFilter fields
+			public const string PrimaryObjectTypeCode = SdkMessageFilterAlias + "." + SdkMessageFilter.Fields.PrimaryObjectTypeCode;
+			public const string SecondaryObjectTypeCode = SdkMessageFilterAlias + "." + SdkMessageFilter.Fields.SecondaryObjectTypeCode;
 		}
-		
+
 		/// <summary>
 		/// Default Constructor.
 		/// </summary>
-		internal SdkMessageProcessingStep(Entity entity) : 
+		internal SdkMessageProcessingStep(Entity entity) :
 				base(EntityLogicalName)
 		{
 			base.Attributes = entity.Attributes;
 		}
-		
+
+		internal void UpdateAttributes(AttributeCollection attributes)
+		{
+			foreach (var attribute in attributes)
+				base.Attributes[attribute.Key] = attribute.Value;
+		}
+
 		public const string EntityLogicalName = "sdkmessageprocessingstep";
-		
+
 		public const string EntityLogicalCollectionName = "sdkmessageprocessingsteps";
-		
+
 		public const string EntitySetName = "sdkmessageprocessingsteps";
-		
+
 		/// <summary>
 		/// Indicates whether the asynchronous system job is automatically deleted on completion.
 		/// </summary>
@@ -170,7 +182,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				this.SetAttributeValue("asyncautodelete", value);
 			}
 		}
-		
+
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("canbebypassed")]
 		public System.Nullable<bool> CanBeBypassed
 		{
@@ -183,7 +195,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				this.SetAttributeValue("canbebypassed", value);
 			}
 		}
-		
+
 		/// <summary>
 		/// Identifies whether a SDK Message Processing Step type will be ReadOnly or Read Write. false - ReadWrite, true - ReadOnly 
 		/// </summary>
@@ -199,7 +211,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				this.SetAttributeValue("canusereadonlyconnection", value);
 			}
 		}
-		
+
 		/// <summary>
 		/// For internal use only.
 		/// </summary>
@@ -215,7 +227,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				this.SetAttributeValue("category", value);
 			}
 		}
-		
+
 		/// <summary>
 		/// For internal use only.
 		/// </summary>
@@ -227,7 +239,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				return ((componentstate?)(EntityOptionSetEnum.GetEnum(this, "componentstate")));
 			}
 		}
-		
+
 		/// <summary>
 		/// Step-specific configuration for the plug-in type. Passed to the plug-in constructor at run time.
 		/// </summary>
@@ -243,7 +255,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				this.SetAttributeValue("configuration", value);
 			}
 		}
-		
+
 		/// <summary>
 		/// Unique identifier of the user who created the SDK message processing step.
 		/// </summary>
@@ -255,7 +267,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdby");
 			}
 		}
-		
+
 		/// <summary>
 		/// Date and time when the SDK message processing step was created.
 		/// </summary>
@@ -267,7 +279,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				return this.GetAttributeValue<System.Nullable<System.DateTime>>("createdon");
 			}
 		}
-		
+
 		/// <summary>
 		/// Unique identifier of the delegate user who created the sdkmessageprocessingstep.
 		/// </summary>
@@ -279,7 +291,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("createdonbehalfby");
 			}
 		}
-		
+
 		/// <summary>
 		/// Customization level of the SDK message processing step.
 		/// </summary>
@@ -291,7 +303,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				return this.GetAttributeValue<System.Nullable<int>>("customizationlevel");
 			}
 		}
-		
+
 		/// <summary>
 		/// Description of the SDK message processing step.
 		/// </summary>
@@ -307,7 +319,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				this.SetAttributeValue("description", value);
 			}
 		}
-		
+
 		/// <summary>
 		/// EnablePluginProfiler
 		/// </summary>
@@ -323,7 +335,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				this.SetAttributeValue("enablepluginprofiler", value);
 			}
 		}
-		
+
 		/// <summary>
 		/// Configuration for sending pipeline events to the Event Expander service.
 		/// </summary>
@@ -339,7 +351,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				this.SetAttributeValue("eventexpander", value);
 			}
 		}
-		
+
 		/// <summary>
 		/// Unique identifier of the associated event handler.
 		/// </summary>
@@ -355,7 +367,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				this.SetAttributeValue("eventhandler", value);
 			}
 		}
-		
+
 		/// <summary>
 		/// Comma-separated list of attributes. If at least one of these attributes is modified, the plug-in should execute.
 		/// </summary>
@@ -371,7 +383,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				this.SetAttributeValue("filteringattributes", value);
 			}
 		}
-		
+
 		/// <summary>
 		/// Unique identifier for fxexpression associated with SdkMessageProcessingStep.
 		/// </summary>
@@ -387,7 +399,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				this.SetAttributeValue("fxexpressionid", value);
 			}
 		}
-		
+
 		/// <summary>
 		/// Unique identifier of the user to impersonate context when step is executed.
 		/// </summary>
@@ -403,7 +415,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				this.SetAttributeValue("impersonatinguserid", value);
 			}
 		}
-		
+
 		/// <summary>
 		/// Version in which the form is introduced.
 		/// </summary>
@@ -419,7 +431,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				this.SetAttributeValue("introducedversion", value);
 			}
 		}
-		
+
 		/// <summary>
 		/// Identifies if a plug-in should be executed from a parent pipeline, a child pipeline, or both.
 		/// </summary>
@@ -435,7 +447,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				this.SetAttributeValue("invocationsource", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
 			}
 		}
-		
+
 		/// <summary>
 		/// Information that specifies whether this component can be customized.
 		/// </summary>
@@ -451,7 +463,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				this.SetAttributeValue("iscustomizable", value);
 			}
 		}
-		
+
 		/// <summary>
 		/// Information that specifies whether this component should be hidden.
 		/// </summary>
@@ -467,7 +479,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				this.SetAttributeValue("ishidden", value);
 			}
 		}
-		
+
 		/// <summary>
 		/// Information that specifies whether this component is managed.
 		/// </summary>
@@ -479,7 +491,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				return this.GetAttributeValue<System.Nullable<bool>>("ismanaged");
 			}
 		}
-		
+
 		/// <summary>
 		/// Run-time mode of execution, for example, synchronous or asynchronous.
 		/// </summary>
@@ -495,7 +507,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				this.SetAttributeValue("mode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
 			}
 		}
-		
+
 		/// <summary>
 		/// Unique identifier of the user who last modified the SDK message processing step.
 		/// </summary>
@@ -507,7 +519,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedby");
 			}
 		}
-		
+
 		/// <summary>
 		/// Date and time when the SDK message processing step was last modified.
 		/// </summary>
@@ -519,7 +531,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				return this.GetAttributeValue<System.Nullable<System.DateTime>>("modifiedon");
 			}
 		}
-		
+
 		/// <summary>
 		/// Unique identifier of the delegate user who last modified the sdkmessageprocessingstep.
 		/// </summary>
@@ -531,7 +543,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("modifiedonbehalfby");
 			}
 		}
-		
+
 		/// <summary>
 		/// Name of SdkMessage processing step.
 		/// </summary>
@@ -547,7 +559,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				this.SetAttributeValue("name", value);
 			}
 		}
-		
+
 		/// <summary>
 		/// Unique identifier of the organization with which the SDK message processing step is associated.
 		/// </summary>
@@ -559,7 +571,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				return this.GetAttributeValue<Microsoft.Xrm.Sdk.EntityReference>("organizationid");
 			}
 		}
-		
+
 		/// <summary>
 		/// For internal use only.
 		/// </summary>
@@ -571,7 +583,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				return this.GetAttributeValue<System.Nullable<System.DateTime>>("overwritetime");
 			}
 		}
-		
+
 		/// <summary>
 		/// Unique identifier of the plug-in type associated with the step.
 		/// </summary>
@@ -588,7 +600,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				this.SetAttributeValue("plugintypeid", value);
 			}
 		}
-		
+
 		/// <summary>
 		/// Unique identifier for powerfxrule associated with SdkMessageProcessingStep.
 		/// </summary>
@@ -604,7 +616,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				this.SetAttributeValue("powerfxruleid", value);
 			}
 		}
-		
+
 		/// <summary>
 		/// Processing order within the stage.
 		/// </summary>
@@ -620,7 +632,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				this.SetAttributeValue("rank", value);
 			}
 		}
-		
+
 		/// <summary>
 		/// For internal use only. Holds miscellaneous properties related to runtime integration.
 		/// </summary>
@@ -636,7 +648,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				this.SetAttributeValue("runtimeintegrationproperties", value);
 			}
 		}
-		
+
 		/// <summary>
 		/// Unique identifier of the SDK message filter.
 		/// </summary>
@@ -652,7 +664,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				this.SetAttributeValue("sdkmessagefilterid", value);
 			}
 		}
-		
+
 		/// <summary>
 		/// Unique identifier of the SDK message.
 		/// </summary>
@@ -668,7 +680,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				this.SetAttributeValue("sdkmessageid", value);
 			}
 		}
-		
+
 		/// <summary>
 		/// Unique identifier of the SDK message processing step entity.
 		/// </summary>
@@ -692,7 +704,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				}
 			}
 		}
-		
+
 		[Microsoft.Xrm.Sdk.AttributeLogicalNameAttribute("sdkmessageprocessingstepid")]
 		public override System.Guid Id
 		{
@@ -705,7 +717,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				this.SdkMessageProcessingStepId = value;
 			}
 		}
-		
+
 		/// <summary>
 		/// Unique identifier of the SDK message processing step.
 		/// </summary>
@@ -717,7 +729,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				return this.GetAttributeValue<System.Nullable<System.Guid>>("sdkmessageprocessingstepidunique");
 			}
 		}
-		
+
 		/// <summary>
 		/// Unique identifier of the Sdk message processing step secure configuration.
 		/// </summary>
@@ -733,7 +745,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				this.SetAttributeValue("sdkmessageprocessingstepsecureconfigid", value);
 			}
 		}
-		
+
 		/// <summary>
 		/// Unique identifier of the associated solution.
 		/// </summary>
@@ -745,7 +757,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				return this.GetAttributeValue<System.Nullable<System.Guid>>("solutionid");
 			}
 		}
-		
+
 		/// <summary>
 		/// Stage in the execution pipeline that the SDK message processing step is in.
 		/// </summary>
@@ -761,7 +773,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				this.SetAttributeValue("stage", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
 			}
 		}
-		
+
 		/// <summary>
 		/// Status of the SDK message processing step.
 		/// </summary>
@@ -777,7 +789,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				this.SetAttributeValue("statecode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
 			}
 		}
-		
+
 		/// <summary>
 		/// Reason for the status of the SDK message processing step.
 		/// </summary>
@@ -793,7 +805,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				this.SetAttributeValue("statuscode", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
 			}
 		}
-		
+
 		/// <summary>
 		/// Deployment that the SDK message processing step should be executed on; server, client, or both.
 		/// </summary>
@@ -809,7 +821,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				this.SetAttributeValue("supporteddeployment", value.HasValue ? new Microsoft.Xrm.Sdk.OptionSetValue((int)value) : null);
 			}
 		}
-		
+
 		/// <summary>
 		/// Number that identifies a specific revision of the SDK message processing step. 
 		/// </summary>
@@ -821,7 +833,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				return this.GetAttributeValue<System.Nullable<long>>("versionnumber");
 			}
 		}
-		
+
 		/// <summary>
 		/// N:1 plugintype_sdkmessageprocessingstep
 		/// </summary>
@@ -838,7 +850,7 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 				this.SetRelatedEntity<mho.PluginStepsViewer.EarlyBoundTypes.PluginType>("plugintype_sdkmessageprocessingstep", null, value);
 			}
 		}
-		
+
 		/// <summary>
 		/// N:1 plugintypeid_sdkmessageprocessingstep
 		/// </summary>
@@ -853,6 +865,29 @@ namespace mho.PluginStepsViewer.EarlyBoundTypes
 			set
 			{
 				this.SetRelatedEntity<mho.PluginStepsViewer.EarlyBoundTypes.PluginType>("plugintypeid_sdkmessageprocessingstep", null, value);
+			}
+		}
+
+		/// <summary>
+		/// Type of entity with which the SDK message filter is primarily associated.
+		/// </summary>
+		public string PrimaryObjectTypeCode
+		{
+			get
+			{
+				return (string)this.GetAttributeValue<AliasedValue>(Fields.PrimaryObjectTypeCode)?.Value;
+			}
+		}
+
+
+		/// <summary>
+		/// Type of entity with which the SDK message filter is secondarily associated.
+		/// </summary>
+		public string SecondaryObjectTypeCode
+		{
+			get
+			{
+				return (string)this.GetAttributeValue<AliasedValue>(Fields.SecondaryObjectTypeCode)?.Value;
 			}
 		}
 	}
