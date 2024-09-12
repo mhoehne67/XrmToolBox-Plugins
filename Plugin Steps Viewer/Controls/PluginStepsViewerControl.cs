@@ -8,7 +8,7 @@ using XrmToolBox.Extensibility.Args;
 
 namespace mho.PluginStepsViewer
 {
-	public partial class PluginStepsViewerControl : PluginControlBase, IStatusBarMessenger
+	public partial class PluginStepsViewerControl : PluginControlBase, IStatusBarMessenger, IGitHubPlugin
 	{
 
 		/// <summary>
@@ -36,6 +36,9 @@ namespace mho.PluginStepsViewer
 		/// Holds a list of all comboboxes that filter the retrieved steps.
 		/// </summary>
 		private readonly List<FilterComboBox> _filterComboBoxes;
+
+		string IGitHubPlugin.RepositoryName => "XrmToolBox-Plugins";
+		string IGitHubPlugin.UserName => "mhoehne67";
 
 
 		/// <summary>
